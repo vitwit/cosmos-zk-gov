@@ -1,0 +1,76 @@
+syntax = "proto3";
+package sdk.zkgov.v1beta1;
+
+import "cosmos/msg/v1/msg.proto";
+import "sdk/zkgov/v1beta1/zkgov.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/vishal-kanna/zk/zk-gov/x/zkgov/types";
+
+// Msg service for the zk-giv service
+service Msg {
+  option (cosmos.msg.v1.service) = true;
+
+  // RegisterUser
+  rpc RegisterUser(MsgRegisterUser) returns (MsgRegisterUserResponse);
+
+  // VoteProposal
+  rpc VoteProposal(MsgVoteProposal) returns (MsgVoteProposalResponse);
+
+  // CreateProposal
+  rpc CreateProposal(MsgCreateProposal) returns (MsgCreateProposalResponse);
+
+  // ProcessProposal
+  rpc ProcessProposal(MsgProcessProposal) returns (MsgProcessProposalResponse);
+}
+
+//
+
+// RegisterUserRequest
+message MsgRegisterUser {
+  option (cosmos.msg.v1.signer) = "sender";
+  string sender = 1;
+  string commitment = 2;
+  uint64 proposal_id = 3;
+}
+
+// RegisterUserResponser
+message MsgRegisterUserResponse {}
+
+// GenerateProofRequest
+message MsgVoteProposal {
+  option (cosmos.msg.v1.signer) = "sender";
+  string nullifier = 1;
+  uint64 proposal_id = 2;
+  VoteOption vote_option = 3;
+  string proposal_state_root = 4;
+  bytes zk_proof = 5;
+  string sender = 6;
+  uint64 merkleproof_size = 7;
+}
+
+// GenerateProofRequest
+message MsgVoteProposalResponse {}
+
+// CreateProposalRequest
+message MsgCreateProposal {
+  option (cosmos.msg.v1.signer) = "sender";
+  string title = 1;
+  string description = 2;
+  google.protobuf.Timestamp registration_deadline = 3;
+  google.protobuf.Timestamp voting_deadline = 4;
+  string sender = 5;
+}
+
+// CreateProposalResponse
+message MsgCreateProposalResponse { uint64 proposal_id = 1; }
+
+// ProcessProposal
+message MsgProcessProposal {
+  option (cosmos.msg.v1.signer) = "sender";
+  uint64 proposal_id = 1;
+  string sender = 2;
+}
+
+// ProcessProposalResponse
+message MsgProcessProposalResponse { VoteOption result = 1; }

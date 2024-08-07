@@ -1,0 +1,31 @@
+syntax = "proto3";
+package sdk.zkgov.v1beta1;
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/vishal-kanna/zk/zk-gov/x/zkgov/types";
+// commitment
+message Commitment {
+  string commitment = 1;
+  uint64 commitment_id = 2;
+}
+// user
+message User {
+  uint64 userid = 1;
+  bytes commitment = 2;
+  uint64 random_number = 3;
+  bytes nullifier = 4;
+}
+
+enum VoteOption {
+  VOTE_OPTION_NO = 0;
+  VOTE_OPTION_YES = 1;
+}
+
+// Proposal
+message Proposal {
+  uint64 proposal_id = 1;
+  string title = 2;
+  string description = 3;
+  google.protobuf.Timestamp registration_deadline = 4;
+  google.protobuf.Timestamp voting_deadline = 5;
+}

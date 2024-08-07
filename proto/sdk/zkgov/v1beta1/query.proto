@@ -1,0 +1,67 @@
+syntax = "proto3";
+package sdk.zkgov.v1beta1;
+import "gogoproto/gogo.proto";
+import "cosmos_proto/cosmos.proto";
+import "google/api/annotations.proto";
+import "sdk/zkgov/v1beta1/zkgov.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/vishal-kanna/zk/zk-gov/x/zkgov/types";
+
+// Query
+service Query {
+  // CommitmentMerkleProof
+  rpc CommitmentMerkleProof(QueryCommitmentMerkleProofRequest)
+      returns (QueryCommitmentMerkleProofResponse) {
+    option (google.api.http).get = "/zk-gov/{proposal_id}/{commitment}";
+  }
+
+  // ProposalAllInfo
+  rpc ProposalAllInfo(QueryProposalAllInfoRequest)
+      returns (QueryProposalAllInfoResponse) {
+    option (google.api.http).get = "/zk-gov/{proposal_id}";
+  }
+
+  // List Proposals
+  rpc GetProposals(GetProposalRequest) returns (GetProposalsResponse) {
+    option (google.api.http).get = "/zk-gov/proposals";
+  }
+}
+
+// QueryCommitmentMerkleProofRequest
+message QueryCommitmentMerkleProofRequest {
+  option (gogoproto.equal) = false;
+  option (gogoproto.goproto_getters) = false;
+  uint64 proposal_id = 1;
+  string commitment = 2;
+}
+
+// QueryCommitmentMerkleProofResponse
+message QueryCommitmentMerkleProofResponse {
+  repeated bytes merkle_proof = 1;
+  bytes root = 2;
+  uint64 commitment_index = 3;
+}
+
+// QueryProposalAllInfoRequest
+message QueryProposalAllInfoRequest { uint64 proposal_id = 1; }
+
+// QueryProposalAllInfoResponse
+message QueryProposalAllInfoResponse { repeated VoteInfo votes = 1; }
+
+// UserInfo
+message UserInfo {
+  string commitment = 1;
+  string user_address = 2;
+}
+
+// VoteInfo
+message VoteInfo {
+  string nullifer = 1;
+  VoteOption vote_option = 2;
+}
+// GetProposalRequest
+message GetProposalRequest {}
+
+// GetProposalsResponse
+message GetProposalsResponse { repeated Proposal proposals = 1; }
