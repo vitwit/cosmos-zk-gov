@@ -26,25 +26,22 @@ Follow the steps below to set up and run Cosmos ZK Voting locally.
 
 ### **Clone the Repository**
 
-bash
+```bash
 
-Copy code
+git clone https://github.com/vitwit/cosmos-zk-gov
 
-`git clone https://github.com/vitwit/cosmos-zk-gov`
+git fetch
 
-`git fetch`
-
-`git checkout main`
+git checkout main
+```
 
 ### **Install zkappd  Binary**
 
 Build and install the `zkappd ` binary required to run the Cosmos ZK Voting chain.
 
-bash
-
-Copy code
-
-`make install`
+```bash
+make install
+```
 
 ### **Run Local Testnet**
 
@@ -53,9 +50,9 @@ Initialize and start a local testnet.
 1. **Initialize and Start the Chain:**  
 Modify the `scripts/init-simapp.sh` script according to your requirements.  
 `make init-simapp` will the run chain.
-bash  
-Copy code  
-`make init-simapp`
+```bash   
+make init-simapp
+```
 
 
 ## **ZK Prover and Verifier Keys**
@@ -63,16 +60,14 @@ Copy code
 Before setting up the chain, generate the ZK prover and verifier keys.
 
 **Create Keys Directory:**  
-bash  
-Copy code  
-`mkdir keys`
+```bash
+mkdir keys
+```
 
-1. 
-
-**Generate ZK Keys:**  
-bash  
-Copy code  
-`make generate-zk-keys`
+1. **Generate ZK Keys:**  
+```bash
+make generate-zk-keys
+```
 
 2. This command runs the `groth16.setup()` function defined in `/x/zkgov/client/zk/main.go`.  
    **Note:** Multiple prover and verifier key pairs are generated (e.g., `verifier-2`, `verifier-3`, `verifier-4`, etc.) to accommodate varying Merkle proof sizes. Use the appropriate key pair dynamically as needed.
@@ -92,23 +87,15 @@ Vote transactions must be sent from a different, unlinkable address than the reg
 **Security Assurance:** The Dispatcher cannot manipulate transactions because the ZK proof guarantees transaction validity without exposing user secrets.
 
 ### **Running the Dispatcher**
-
-**Navigate to the Dispatcher Directory:**  
-bash  
-Copy code  
-`cd /x/zkgov/client/dispatcher`
-
-1. 
-
-**Start the dispatcher:**  
-bash  
-Copy code  
-`zkappd  tx zk-gov run-dispatcher --from {key} --keyring-backend test --chain-id {chain-id} -y`
+1.**Start the dispatcher:**  
+```bash  
+zkappd  tx zk-gov run-dispatcher --from {key} --keyring-backend test --chain-id {chain-id} -y
+```
 
 Alternatively, you can run a predefined dispatcher (e.g., alice):  
-bash  
-Copy code  
-`make run-alice-dispatcher`
+```bash  
+make run-alice-dispatcher
+```
 
 2. This command starts an HTTP server on port `8080` by default. You can change the port using the `--dispatcherPort {port}` flag.
 
@@ -122,49 +109,41 @@ Create a new governance proposal that can be voted on with a YES or NO.
 
 **Proposal ID:** Starts at 1 and increments sequentially.
 
-bash
-
-Copy code
-
-`zkappd  tx zk-gov create-proposal [proposal-title] [proposal-description] --from [address] --keyring-backend test --chain-id [chain-id]`
+```bash
+zkappd  tx zk-gov create-proposal [proposal-title] [proposal-description] --from [address] --keyring-backend test --chain-id [chain-id]
+```
 
 Or use a make command for convenience:
 
-bash
-
-Copy code
-
-`make create-proposal-a`
+```bash
+make create-proposal-a
+```
 
 **Create Commitments Directory:**  
-bash  
-Copy code  
-`mkdir commitments`
+```bash  
+mkdir commitments
+```
 
 
 ### **Register a Vote**
 
 Register a vote commitment, which will be used later to anonymize the actual vote.
 
-bash
-
-Copy code
-
-`zkappd  tx zk-gov register-vote [proposal-id] {"YES"/"NO"} --from [actual-voter-address] --keyring-backend test --chain-id [chain-id]`
+```bash
+zkappd  tx zk-gov register-vote [proposal-id] {"YES"/"NO"} --from [actual-voter-address] --keyring-backend test --chain-id [chain-id]
+```
 
 Alternatively, use predefined make commands:
 
-bash
+```bash
+make register-alice-vote
 
-Copy code
+make register-bob-vote
 
-`make register-alice-vote`
+make register-charlie-vote
 
-`make register-bob-vote`
-
-`make register-charlie-vote`
-
-`make register-david-vote`
+make register-david-vote
+```
 
 ### **Cast a Vote**
 
@@ -174,49 +153,38 @@ After registering a vote commitment, generate a ZK proof to cast the actual vote
 
 #### **Without dispatcher**
 
-bash
-
-Copy code
-
-`zkappd  tx zk-gov vote [proposal-id] [register-vote-address] --from [different-unlinkable-address] --keyring-backend test --chain-id [chain-id]`
+```bash
+zkappd  tx zk-gov vote [proposal-id] [register-vote-address] --from [different-unlinkable-address] --keyring-backend test --chain-id [chain-id]
+```
 
 Or use make commands:
 
-bash
-
-Copy code
-
-`make broadcast-alice-vote`
-
-`make broadcast-bob-vote`
+```bash
+make broadcast-alice-vote
+make broadcast-bob-vote
+```
 
 #### **With Dispatcher**
 
-bash
-
-Copy code
-
-`zkappd  tx zk-gov vote [proposal-id] [register-vote-address] --dispatcher [dispatcher-address]`
+```bash
+zkappd  tx zk-gov vote [proposal-id] [register-vote-address] --dispatcher [dispatcher-address]
+```
 
 Or use make commands:
 
-bash
+```bash
+make broadcast-charlie-vote-via-dispatcher
 
-Copy code
-
-`make broadcast-charlie-vote-via-dispatcher`
-
-`make broadcast-david-vote-via-dispatcher`
+make broadcast-david-vote-via-dispatcher
+```
 
 ### **Query a Proposal**
 
 View the state of a proposal, including commitments and votes.
 
-bash
-
-Copy code
-
-`zkappd  q zk-gov get-proposal-info [proposal-id]`
+```bash
+zkappd  q zk-gov get-proposal-info [proposal-id]
+```
 
 ## **Contributing**
 
