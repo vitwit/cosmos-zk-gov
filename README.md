@@ -25,28 +25,20 @@ Follow the steps below to set up and run Cosmos ZK Voting locally.
 * [Git](https://git-scm.com/downloads)
 
 ### **Clone the Repository**
-
-bash
-
-Copy code
-
-`git clone https://github.com/your-username/cosmos-zk-voting`
-
-`cd cosmos-zk-voting`
-
-`git fetch`
-
-`git checkout main`
+```bash
+git clone https://github.com/your-username/cosmos-zk-voting
+cd cosmos-zk-voting
+git fetch
+git checkout main
+```
 
 ### **Install zkappd  Binary**
 
 Build and install the `zkappd ` binary required to run the Cosmos ZK Voting chain.
 
-bash
-
-Copy code
-
-`make install`
+```bash
+make install
+```
 
 ### **Run Local Testnet**
 
@@ -54,34 +46,28 @@ Initialize and start a local testnet.
 
 **Initialize the Chain:**  
 Modify the `scripts/init-simapp.sh` script according to your requirements.  
-bash  
-Copy code  
-`make init-simapp`
+```bash
+make init-simapp
+```
 
-1. 
+1. **Start the Testnet:**  
+```bash
+zkappd  start
+```
 
-**Start the Testnet:**  
-bash  
-Copy code  
-`zkappd  start`
-
-2. 
-
-## **ZK Prover and Verifier Keys**
+2. ## **ZK Prover and Verifier Keys**
 
 Before setting up the chain, generate the ZK prover and verifier keys.
 
 **Create Keys Directory:**  
-bash  
-Copy code  
-`mkdir keys`
+```bash
+mkdir keys
+```
 
-1. 
-
-**Generate ZK Keys:**  
-bash  
-Copy code  
-`make generate-zk-keys`
+1. **Generate ZK Keys:**  
+```bash
+make generate-zk-keys
+```
 
 2. This command runs the `groth16.setup()` function defined in `/x/zkgov/client/zk/main.go`.  
    **Note:** Multiple prover and verifier key pairs are generated (e.g., `verifier-2`, `verifier-3`, `verifier-4`, etc.) to accommodate varying Merkle proof sizes. Use the appropriate key pair dynamically as needed.
@@ -103,21 +89,19 @@ Vote transactions must be sent from a different, unlinkable address than the reg
 ### **Running the Relayer**
 
 **Navigate to the Relayer Directory:**  
-bash  
-Copy code  
-`cd /x/zkgov/client/relayer`
+```bash
+cd /x/zkgov/client/relayer
+```
 
-1. 
-
-**Start the Relayer:**  
-bash  
-Copy code  
-`zkappd  tx zk-gov run-relayer --from {key} --keyring-backend test --chain-id {chain-id} -y`
+1. **Start the Relayer:**  
+```bash
+zkappd  tx zk-gov run-relayer --from {key} --keyring-backend test --chain-id {chain-id} -y
+```
 
 Alternatively, you can run a predefined relayer (e.g., Alice):  
-bash  
-Copy code  
-`make run-alice-relayer`
+```bash
+make run-alice-relayer
+```
 
 2. This command starts an HTTP server on port `8080` by default. You can change the port using the `--relayerPort {port}` flag.
 
@@ -131,44 +115,33 @@ Create a new governance proposal that can be voted on with a YES or NO.
 
 **Proposal ID:** Starts at 1 and increments sequentially.
 
-bash
-
-Copy code
-
-`zkappd  tx zk-gov create-proposal [proposal-title] [proposal-description] --from [address] --keyring-backend test --chain-id [chain-id]`
+```bash
+zkappd  tx zk-gov create-proposal [proposal-title] [proposal-description] --from [address] --keyring-backend test --chain-id [chain-id]
+```
 
 Or use a make command for convenience:
 
-bash
-
-Copy code
-
-`make create-proposal-a`
+```bash
+make create-proposal-a
+```
 
 ### **Register a Vote**
 
 Register a vote commitment, which will be used later to anonymize the actual vote.
 
-bash
-
-Copy code
-
-`zkappd  tx zk-gov register-vote [proposal-id] {"YES"/"NO"} --from [actual-voter-address] --keyring-backend test --chain-id [chain-id]`
+```bash
+zkappd  tx zk-gov register-vote [proposal-id] {"YES"/"NO"} --from [actual-voter-address] --keyring-backend test --chain-id [chain-id]
+```
 
 Alternatively, use predefined make commands:
 
-bash
-
-`mkdir commitments`
-Copy code
-
-`make register-alice-vote`
-
-`make register-bob-vote`
-
-`make register-sai-vote`
-
-`make register-teja-vote`
+```bash
+mkdir commitments
+make register-alice-vote
+make register-bob-vote
+make register-sai-vote
+make register-teja-vote
+```
 
 ### **Cast a Vote**
 
@@ -178,49 +151,37 @@ After registering a vote commitment, generate a ZK proof to cast the actual vote
 
 #### **Without Relayer**
 
-bash
-
-Copy code
-
-`zkappd  tx zk-gov vote [proposal-id] [register-vote-address] --from [different-unlinkable-address] --keyring-backend test --chain-id [chain-id]`
+```bash
+zkappd  tx zk-gov vote [proposal-id] [register-vote-address] --from [different-unlinkable-address] --keyring-backend test --chain-id [chain-id]
+```
 
 Or use make commands:
 
-bash
-
-Copy code
-
-`make broadcast-alice-vote`
-
-`make broadcast-bob-vote`
+```bash
+make broadcast-alice-vote
+make broadcast-bob-vote
+```
 
 #### **With Relayer**
 
-bash
-
-Copy code
-
-`zkappd  tx zk-gov vote [proposal-id] [register-vote-address] --relayer [relayer-address]`
+```bash
+zkappd  tx zk-gov vote [proposal-id] [register-vote-address] --relayer [relayer-address]
+```
 
 Or use make commands:
 
-bash
-
-Copy code
-
-`make broadcast-sai-vote-via-relayer`
-
-`make broadcast-teja-vote-via-relayer`
+```bash
+make broadcast-sai-vote-via-relayer
+make broadcast-teja-vote-via-relayer
+```
 
 ### **Query a Proposal**
 
 View the state of a proposal, including commitments and votes.
 
-bash
-
-Copy code
-
-`zkappd  q zk-gov get-proposal-info [proposal-id]`
+```bash
+zkappd  q zk-gov get-proposal-info [proposal-id]
+```
 
 ## **Contributing**
 
