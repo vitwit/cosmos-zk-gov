@@ -10,7 +10,7 @@ import (
 	"github.com/consensys/gnark-crypto/ecc/bn254/fr/mimc"
 	"github.com/consensys/gnark/frontend"
 	"github.com/consensys/gnark/std/accumulator/merkle"
-	"github.com/vishal-kanna/zk/zk-gov/x/zkgov/types"
+	"github.com/vitwit/cosmos-zk-gov/x/zkgov/types"
 )
 
 func InitMerkleRoot(ctx context.Context, store cosmosstore.KVStore, proposalID uint64) error {

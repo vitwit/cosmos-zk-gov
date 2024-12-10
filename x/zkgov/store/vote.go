@@ -4,7 +4,7 @@ import (
 	"context"
 
 	cosmosstore "cosmossdk.io/core/store"
-	"github.com/vishal-kanna/zk/zk-gov/x/zkgov/types"
+	"github.com/vitwit/cosmos-zk-gov/x/zkgov/types"
 )
 
 func InitVotes(ctx context.Context, store cosmosstore.KVStore, proposalID uint64) error {

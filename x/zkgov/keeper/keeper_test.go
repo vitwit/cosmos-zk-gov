@@ -18,9 +18,9 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	moduletestutil "github.com/cosmos/cosmos-sdk/types/module/testutil"
 	"github.com/stretchr/testify/suite"
-	"github.com/vishal-kanna/zk/zk-gov/x/zkgov"
-	"github.com/vishal-kanna/zk/zk-gov/x/zkgov/keeper"
-	"github.com/vishal-kanna/zk/zk-gov/x/zkgov/types"
+	"github.com/vitwit/cosmos-zk-gov/x/zkgov"
+	"github.com/vitwit/cosmos-zk-gov/x/zkgov/keeper"
+	"github.com/vitwit/cosmos-zk-gov/x/zkgov/types"
 )
 
 type TestSuite struct {

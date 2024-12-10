@@ -6,7 +6,7 @@ import (
 	"cosmossdk.io/log"
 	dbm "github.com/cosmos/cosmos-db"
 	"github.com/spf13/cobra"
-	simapp "github.com/vishal-kanna/zk/zk-gov/app"
+	simapp "github.com/vitwit/cosmos-zk-gov/app"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/config"

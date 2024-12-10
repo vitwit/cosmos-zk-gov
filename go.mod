@@ -1,4 +1,4 @@
-module github.com/vishal-kanna/zk/zk-gov
+module github.com/vitwit/cosmos-zk-gov
 
 go 1.22.4
 

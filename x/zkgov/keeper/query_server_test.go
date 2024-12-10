@@ -3,7 +3,7 @@ package keeper_test
 // import (
 // 	"fmt"
 
-// 	"github.com/vishal-kanna/zk/zk-gov/x/zkgov/types"
+// 	"github.com/vitwit/cosmos-zk-gov/x/zkgov/types"
 // )
 
 // func (s *TestSuite) TestPlanByID() {

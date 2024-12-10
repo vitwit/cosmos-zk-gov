@@ -14,7 +14,7 @@ package app_test
 // 	simcli "github.com/cosmos/cosmos-sdk/x/simulation/client/cli"
 // 	"github.com/stretchr/testify/require"
 
-// 	"github.com/vishal-kanna/zk/zk-gov/app"
+// 	"github.com/vitwit/cosmos-zk-gov/app"
 // )
 
 // // Profile with:

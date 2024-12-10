@@ -2,7 +2,7 @@ package zkgov
 
 // import (
 // 	autocliv1 "cosmossdk.io/api/cosmos/autocli/v1"
-// 	zkgovv1beta1 "github.com/vishal-kanna/zk/zk-gov/api/sdk/zkgov/v1beta1"
+// 	zkgovv1beta1 "github.com/vitwit/cosmos-zk-gov/api/sdk/zkgov/v1beta1"
 // )
 
 // func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {

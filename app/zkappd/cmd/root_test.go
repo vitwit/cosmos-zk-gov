@@ -6,8 +6,8 @@ package cmd_test
 
 // 	"github.com/stretchr/testify/require"
 
-// 	simapp "github.com/vishal-kanna/zk/zk-gov/app"
-// 	"github.com/vishal-kanna/zk/zk-gov/app/zkappd/cmd"
+// 	simapp "github.com/vitwit/cosmos-zk-gov/app"
+// 	"github.com/vitwit/cosmos-zk-gov/app/zkappd/cmd"
 
 // 	"github.com/cosmos/cosmos-sdk/client/flags"
 // 	svrcmd "github.com/cosmos/cosmos-sdk/server/cmd"

@@ -99,9 +99,9 @@ import (
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	"github.com/cosmos/gogoproto/proto"
 	"github.com/spf13/cast"
-	"github.com/vishal-kanna/zk/zk-gov/x/zkgov"
-	zkgovKeeper "github.com/vishal-kanna/zk/zk-gov/x/zkgov/keeper"
-	zktypes "github.com/vishal-kanna/zk/zk-gov/x/zkgov/types"
+	"github.com/vitwit/cosmos-zk-gov/x/zkgov"
+	zkgovKeeper "github.com/vitwit/cosmos-zk-gov/x/zkgov/keeper"
+	zktypes "github.com/vitwit/cosmos-zk-gov/x/zkgov/types"
 )
 
 const AppName = "App"

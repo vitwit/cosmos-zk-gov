@@ -5,8 +5,8 @@ import (
 
 	gwruntime "github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/spf13/cobra"
-	"github.com/vishal-kanna/zk/zk-gov/x/zkgov/client/cli"
-	"github.com/vishal-kanna/zk/zk-gov/x/zkgov/keeper"
+	"github.com/vitwit/cosmos-zk-gov/x/zkgov/client/cli"
+	"github.com/vitwit/cosmos-zk-gov/x/zkgov/keeper"
 
 	"cosmossdk.io/core/appmodule"
 
@@ -15,7 +15,7 @@ import (
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
-	zktypes "github.com/vishal-kanna/zk/zk-gov/x/zkgov/types"
+	zktypes "github.com/vitwit/cosmos-zk-gov/x/zkgov/types"
 )
 
 var (

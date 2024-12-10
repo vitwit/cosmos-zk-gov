@@ -12,7 +12,7 @@ import (
 
 	"cosmossdk.io/log"
 	confixcmd "cosmossdk.io/tools/confix/cmd"
-	simapp "github.com/vishal-kanna/zk/zk-gov/app"
+	simapp "github.com/vitwit/cosmos-zk-gov/app"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/debug"

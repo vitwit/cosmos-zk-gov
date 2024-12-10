@@ -5,7 +5,7 @@ import (
 	"encoding/binary"
 
 	cosmosstore "cosmossdk.io/core/store"
-	"github.com/vishal-kanna/zk/zk-gov/x/zkgov/types"
+	"github.com/vitwit/cosmos-zk-gov/x/zkgov/types"
 )
 
 func StoreProposal(ctx context.Context, store cosmosstore.KVStore, req types.MsgCreateProposal) (uint64, error) {

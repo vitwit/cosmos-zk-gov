@@ -14,16 +14,16 @@ import (
 	"github.com/spf13/cobra"
 	"golang.org/x/exp/slog"
 
-	"github.com/vishal-kanna/zk/zk-gov/x/zkgov/circuit"
-	relayerCLient "github.com/vishal-kanna/zk/zk-gov/x/zkgov/client/relayer/client"
-	relayerServer "github.com/vishal-kanna/zk/zk-gov/x/zkgov/client/relayer/server"
-	"github.com/vishal-kanna/zk/zk-gov/x/zkgov/store"
-	"github.com/vishal-kanna/zk/zk-gov/x/zkgov/types"
+	dispatcherCLient "github.com/vitwit/cosmos-zk-gov/dispatcher/client"
+	dispatcherServer "github.com/vitwit/cosmos-zk-gov/dispatcher/server"
+	"github.com/vitwit/cosmos-zk-gov/x/zkgov/circuit"
+	"github.com/vitwit/cosmos-zk-gov/x/zkgov/store"
+	"github.com/vitwit/cosmos-zk-gov/x/zkgov/types"
 )
 
 var FlagSplit = "split"
-var FlagRelayer = "relayer"
-var FlagRelayerPort = "relayerPort"
+var Flagdispatcher = "dispatcher"
+var FlagdispatcherPort = "dispatcherPort"
 
 // NewTxCmd returns a root CLI command handler for all x/bank transaction commands.
 func NewTxCmd() *cobra.Command {
@@ -39,7 +39,7 @@ func NewTxCmd() *cobra.Command {
 		NewRegisterVoteCmd(),
 		NewCreateProposalCmd(),
 		NewVote(),
-		Relayer(),
+		Dispatcher(),
 	)
 
 	return txCmd
@@ -208,14 +208,14 @@ func NewVote() *cobra.Command {
 				MerkleproofSize:   uint64(merkleproofSize),
 			}
 
-			relayerFlag := cmd.Flag(FlagRelayer)
-			relayerAddress := relayerFlag.Value.String()
-			if relayerAddress == "" {
+			dispatcherFlag := cmd.Flag(Flagdispatcher)
+			dispatcherAddress := dispatcherFlag.Value.String()
+			if dispatcherAddress == "" {
 				return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), &msg)
 			}
 
-			relayerClient := relayerCLient.NewRelayerClient(relayerAddress)
-			err = relayerClient.BroadCastTx(msg)
+			dispatcherClient := dispatcherCLient.NewdispatcherClient(dispatcherAddress)
+			err = dispatcherClient.BroadCastTx(msg)
 			if err != nil {
 				return err
 			}
@@ -225,30 +225,30 @@ func NewVote() *cobra.Command {
 		},
 	}
 
-	cmd.Flags().String(FlagRelayer, "", "Broadcast the transaction Relayer end point")
+	cmd.Flags().String(Flagdispatcher, "", "Broadcast the transaction dispatcher end point")
 	flags.AddTxFlagsToCmd(cmd)
 
 	return cmd
 }
 
-func Relayer() *cobra.Command {
+func Dispatcher() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "run-relayer",
-		Short: "relayer will listen to transactions from users, signs them and broadcast them to network",
+		Use:   "run-dispatcher",
+		Short: "dispatcher will listen to transactions from users, signs them and broadcast them to network",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
 			}
 
-			relayer := relayerServer.NewRelayer(&clientCtx, cmd)
-			port := cmd.Flag(FlagRelayerPort).Value.String()
+			dispatcher := dispatcherServer.NewDispatcher(&clientCtx, cmd)
+			port := cmd.Flag(FlagdispatcherPort).Value.String()
 
-			return relayer.Run(port)
+			return dispatcher.Run(port)
 		},
 	}
 
-	cmd.Flags().Uint64(FlagRelayerPort, 8080, "port on which relayer runs")
+	cmd.Flags().Uint64(FlagdispatcherPort, 8080, "port on which dispatcher runs")
 	flags.AddTxFlagsToCmd(cmd)
 	return cmd
 }

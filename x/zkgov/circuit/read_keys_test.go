@@ -12,7 +12,7 @@ import (
 	"github.com/consensys/gnark/backend/groth16"
 	"github.com/consensys/gnark/frontend"
 	"github.com/consensys/gnark/test"
-	"github.com/vishal-kanna/zk/zk-gov/x/zkgov/store"
+	"github.com/vitwit/cosmos-zk-gov/x/zkgov/store"
 )
 
 func TestReadingKeys(t *testing.T) {

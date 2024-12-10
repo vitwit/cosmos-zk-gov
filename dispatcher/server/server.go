@@ -10,22 +10,22 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/tx"
 	"github.com/spf13/cobra"
-	"github.com/vishal-kanna/zk/zk-gov/x/zkgov/types"
+	"github.com/vitwit/cosmos-zk-gov/x/zkgov/types"
 )
 
-type RelayerServer struct {
+type DispatcherServer struct {
 	ClientCtx *client.Context
 	Cmd       *cobra.Command
 }
 
-func NewRelayer(ctx *client.Context, cmd *cobra.Command) RelayerServer {
-	return RelayerServer{
+func NewDispatcher(ctx *client.Context, cmd *cobra.Command) DispatcherServer {
+	return DispatcherServer{
 		ClientCtx: ctx,
 		Cmd:       cmd,
 	}
 }
 
-func (relayer *RelayerServer) broadCastTransactionHandler(w http.ResponseWriter, r *http.Request) {
+func (dispatcher *DispatcherServer) broadCastTransactionHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
 		body, err := io.ReadAll(r.Body)
 		if err != nil {
@@ -34,11 +34,11 @@ func (relayer *RelayerServer) broadCastTransactionHandler(w http.ResponseWriter,
 		}
 		defer r.Body.Close()
 
-		relayerAddress := relayer.ClientCtx.GetFromAddress().String()
+		dispatcherAddress := dispatcher.ClientCtx.GetFromAddress().String()
 
 		var msg types.MsgVoteProposal
 		err = msg.Unmarshal(body)
-		msg.Sender = relayerAddress
+		msg.Sender = dispatcherAddress
 
 		if err != nil {
 			slog.Error("unable to unmarshal transaction")
@@ -51,7 +51,7 @@ func (relayer *RelayerServer) broadCastTransactionHandler(w http.ResponseWriter,
 			fmt.Sprintf("Received vote transaction: proposal_ID=%d, vote_option=%d\n", msg.ProposalId, msg.VoteOption),
 		)
 
-		err = tx.GenerateOrBroadcastTxCLI(*relayer.ClientCtx, relayer.Cmd.Flags(), &msg)
+		err = tx.GenerateOrBroadcastTxCLI(*dispatcher.ClientCtx, dispatcher.Cmd.Flags(), &msg)
 		if err != nil {
 			slog.Error("Error while broadcasting vote proposal", err.Error())
 			http.Error(w, "Broadcast error ", http.StatusInternalServerError)
@@ -74,11 +74,11 @@ func (relayer *RelayerServer) broadCastTransactionHandler(w http.ResponseWriter,
 	}
 }
 
-func (relayer *RelayerServer) Run(port string) error {
-	http.HandleFunc("/broadCastTransaction", relayer.broadCastTransactionHandler)
-	slog.Info("Starting Relayer server on :" + port)
+func (dispatcher *DispatcherServer) Run(port string) error {
+	http.HandleFunc("/broadCastTransaction", dispatcher.broadCastTransactionHandler)
+	slog.Info("Starting dispatcher server on :" + port)
 	if err := http.ListenAndServe(fmt.Sprintf(":%s", port), nil); err != nil {
-		return fmt.Errorf("Could not start relayer: %s\n", err)
+		return fmt.Errorf("Could not start dispatcher: %s\n", err)
 	}
 	return nil
 }
