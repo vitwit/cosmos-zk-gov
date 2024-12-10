@@ -105,10 +105,10 @@ bash
 Copy code  
 `zkappd  tx zk-gov run-dispatcher --from {key} --keyring-backend test --chain-id {chain-id} -y`
 
-Alternatively, you can run a predefined dispatcher (e.g., Vishal):  
+Alternatively, you can run a predefined dispatcher (e.g., alice):  
 bash  
 Copy code  
-`make run-vishal-dispatcher`
+`make run-alice-dispatcher`
 
 2. This command starts an HTTP server on port `8080` by default. You can change the port using the `--dispatcherPort {port}` flag.
 
@@ -158,13 +158,13 @@ bash
 
 Copy code
 
-`make register-vishal-vote`
+`make register-alice-vote`
 
-`make register-kanna-vote`
+`make register-bob-vote`
 
-`make register-sai-vote`
+`make register-charlie-vote`
 
-`make register-teja-vote`
+`make register-david-vote`
 
 ### **Cast a Vote**
 
@@ -186,9 +186,9 @@ bash
 
 Copy code
 
-`make broadcast-vishal-vote`
+`make broadcast-alice-vote`
 
-`make broadcast-kanna-vote`
+`make broadcast-bob-vote`
 
 #### **With Dispatcher**
 
@@ -204,9 +204,9 @@ bash
 
 Copy code
 
-`make broadcast-sai-vote-via-dispatcher`
+`make broadcast-charlie-vote-via-dispatcher`
 
-`make broadcast-teja-vote-via-dispatcher`
+`make broadcast-david-vote-via-dispatcher`
 
 ### **Query a Proposal**
 

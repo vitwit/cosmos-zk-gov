@@ -497,52 +497,52 @@ generate-zk-keys:
 #######                     dispatcher                       ############
 ######################################################################
 
-run-vishal-dispatcher:
-	zkappd tx zk-gov run-dispatcher --from vishal --keyring-backend test --chain-id demo -y
-run-kanna-dispatcher:
-	zkappd tx zk-gov run-dispatcher --from kanna --keyring-backend test --chain-id demo
-run-sai-dispatcher:
-	zkappd tx zk-gov run-dispatcher --from sai --keyring-backend test --chain-id demo
-run-teja-dispatcher:
-	zkappd tx zk-gov run-dispatcher --from teja --keyring-backend test --chain-id demo
+run-alice-dispatcher:
+	zkappd tx zk-gov run-dispatcher --from alice --keyring-backend test --chain-id demo -y
+run-bob-dispatcher:
+	zkappd tx zk-gov run-dispatcher --from bob --keyring-backend test --chain-id demo
+run-charlie-dispatcher:
+	zkappd tx zk-gov run-dispatcher --from charlie --keyring-backend test --chain-id demo
+run-david-dispatcher:
+	zkappd tx zk-gov run-dispatcher --from david --keyring-backend test --chain-id demo
 
-.PHONY: run-vishal-dispatcher run-kanna-dispatcher run-sai-dispatcher run-teja-dispatcher
+.PHONY: run-alice-dispatcher run-bob-dispatcher run-charlie-dispatcher run-david-dispatcher
 
 ######################################################################
 #######                  Transactions                     ############
 ######################################################################
 
 create-proposal-a: 
-	zkappd tx zk-gov create-proposal "proposal-A" "proposal-A description" --from vishal --keyring-backend test --chain-id demo
+	zkappd tx zk-gov create-proposal "proposal-A" "proposal-A description" --from alice --keyring-backend test --chain-id demo
 create-proposal-b: 
-	zkappd tx zk-gov create-proposal "proposal-B" "proposal-B description" --from vishal --keyring-backend test --chain-id demo
+	zkappd tx zk-gov create-proposal "proposal-B" "proposal-B description" --from alice --keyring-backend test --chain-id demo
 
-register-vishal-vote: 
-	zkappd tx zk-gov register-vote 1 "NO" --from vishal --keyring-backend test --chain-id demo
-register-kanna-vote: 
-	zkappd tx zk-gov register-vote 1 "YES" --from kanna --keyring-backend test --chain-id demo
-register-sai-vote: 
-	zkappd tx zk-gov register-vote 1 "NO" --from sai --keyring-backend test --chain-id demo
-register-teja-vote: 
-	zkappd tx zk-gov register-vote 1 "YES" --from teja --keyring-backend test --chain-id demo
+register-alice-vote: 
+	zkappd tx zk-gov register-vote 1 "NO" --from alice --keyring-backend test --chain-id demo
+register-bob-vote: 
+	zkappd tx zk-gov register-vote 1 "YES" --from bob --keyring-backend test --chain-id demo
+register-charlie-vote: 
+	zkappd tx zk-gov register-vote 1 "NO" --from charlie --keyring-backend test --chain-id demo
+register-david-vote: 
+	zkappd tx zk-gov register-vote 1 "YES" --from david --keyring-backend test --chain-id demo
 
-broadcast-vishal-vote:
+broadcast-alice-vote:
 	zkappd tx zk-gov vote 1 cosmos1ux2hl3y42nz6vtdl8k7t7f05k9p3r2k62zfvtv --from unknown --keyring-backend test --chain-id demo
-broadcast-kanna-vote:
+broadcast-bob-vote:
 	zkappd tx zk-gov vote 1 cosmos13j3mn8n2d3scd2yy3urmw5vqhn53rej6p050np --from unknown --keyring-backend test --chain-id demo
-broadcast-sai-vote:
+broadcast-charlie-vote:
 	zkappd tx zk-gov vote 1 cosmos1mg4t0l2nc98vhjdmg6kzee5wh6uhx9jlfrgfu9 --from unknown --keyring-backend test --chain-id demo
-broadcast-teja-vote:
+broadcast-david-vote:
 	zkappd tx zk-gov vote 1 cosmos1pf0m5ch2673r6lv5lwm2mkyw433xapzx7nuemu --from unknown --keyring-backend test --chain-id demo
 
-broadcast-vishal-vote-via-dispatcher:
+broadcast-alice-vote-via-dispatcher:
 	zkappd tx zk-gov vote 1 cosmos1ux2hl3y42nz6vtdl8k7t7f05k9p3r2k62zfvtv --dispatcher "http://localhost:8080"
-broadcast-kanna-vote-via-dispatcher:
+broadcast-bob-vote-via-dispatcher:
 	zkappd tx zk-gov vote 1 cosmos13j3mn8n2d3scd2yy3urmw5vqhn53rej6p050np --dispatcher "http://localhost:8080"
-broadcast-sai-vote-via-dispatcher:
+broadcast-charlie-vote-via-dispatcher:
 	zkappd tx zk-gov vote 1 cosmos1mg4t0l2nc98vhjdmg6kzee5wh6uhx9jlfrgfu9 --dispatcher "http://localhost:8080"
-broadcast-teja-vote-via-dispatcher:
+broadcast-david-vote-via-dispatcher:
 	zkappd tx zk-gov vote 1 cosmos1pf0m5ch2673r6lv5lwm2mkyw433xapzx7nuemu --dispatcher "http://localhost:8080"
 
 
-.PHONY: create-proposal-a create-proposal-b broadcast-vishal-vote broadcast-kanna-vote broadcast-sai-vote broadcast-teja-vote broadcast-vishal-vote-via-dispatcher broadcast-kanna-vote-via-dispatcher broadcast-sai-vote-via-dispatcher broadcast-teja-vote-via-dispatcher
+.PHONY: create-proposal-a create-proposal-b broadcast-alice-vote broadcast-bob-vote broadcast-charlie-vote broadcast-david-vote broadcast-alice-vote-via-dispatcher broadcast-bob-vote-via-dispatcher broadcast-charlie-vote-via-dispatcher broadcast-david-vote-via-dispatcher
