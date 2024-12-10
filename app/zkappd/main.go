@@ -5,7 +5,7 @@ import (
 	"os"
 
 	simapp "github.com/vishal-kanna/zk/zk-gov/app"
-	"github.com/vishal-kanna/zk/zk-gov/app/simd/cmd"
+	"github.com/vishal-kanna/zk/zk-gov/app/zkappd/cmd"
 
 	svrcmd "github.com/cosmos/cosmos-sdk/server/cmd"
 )

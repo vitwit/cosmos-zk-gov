@@ -247,7 +247,7 @@ func appExport(
 }
 
 var tempDir = func() string {
-	dir, err := os.MkdirTemp("", "zkapp")
+	dir, err := os.MkdirTemp("", "zkappd")
 	if err != nil {
 		dir = simapp.DefaultNodeHome
 	}

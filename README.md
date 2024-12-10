@@ -38,9 +38,9 @@ Copy code
 
 `git checkout main`
 
-### **Install Simd Binary**
+### **Install zkappd  Binary**
 
-Build and install the `simd` binary required to run the Cosmos ZK Voting chain.
+Build and install the `zkappd ` binary required to run the Cosmos ZK Voting chain.
 
 bash
 
@@ -63,7 +63,7 @@ Copy code
 **Start the Testnet:**  
 bash  
 Copy code  
-`simd start`
+`zkappd  start`
 
 2. 
 
@@ -112,7 +112,7 @@ Copy code
 **Start the Relayer:**  
 bash  
 Copy code  
-`simd tx zk-gov run-relayer --from {key} --keyring-backend test --chain-id {chain-id} -y`
+`zkappd  tx zk-gov run-relayer --from {key} --keyring-backend test --chain-id {chain-id} -y`
 
 Alternatively, you can run a predefined relayer (e.g., Alice):  
 bash  
@@ -135,7 +135,7 @@ bash
 
 Copy code
 
-`simd tx zk-gov create-proposal [proposal-title] [proposal-description] --from [address] --keyring-backend test --chain-id [chain-id]`
+`zkappd  tx zk-gov create-proposal [proposal-title] [proposal-description] --from [address] --keyring-backend test --chain-id [chain-id]`
 
 Or use a make command for convenience:
 
@@ -153,12 +153,13 @@ bash
 
 Copy code
 
-`simd tx zk-gov register-vote [proposal-id] {"YES"/"NO"} --from [actual-voter-address] --keyring-backend test --chain-id [chain-id]`
+`zkappd  tx zk-gov register-vote [proposal-id] {"YES"/"NO"} --from [actual-voter-address] --keyring-backend test --chain-id [chain-id]`
 
 Alternatively, use predefined make commands:
 
 bash
 
+`mkdir commitments`
 Copy code
 
 `make register-alice-vote`
@@ -181,7 +182,7 @@ bash
 
 Copy code
 
-`simd tx zk-gov vote [proposal-id] [register-vote-address] --from [different-unlinkable-address] --keyring-backend test --chain-id [chain-id]`
+`zkappd  tx zk-gov vote [proposal-id] [register-vote-address] --from [different-unlinkable-address] --keyring-backend test --chain-id [chain-id]`
 
 Or use make commands:
 
@@ -199,7 +200,7 @@ bash
 
 Copy code
 
-`simd tx zk-gov vote [proposal-id] [register-vote-address] --relayer [relayer-address]`
+`zkappd  tx zk-gov vote [proposal-id] [register-vote-address] --relayer [relayer-address]`
 
 Or use make commands:
 
@@ -219,7 +220,7 @@ bash
 
 Copy code
 
-`simd q zk-gov get-proposal-info [proposal-id]`
+`zkappd  q zk-gov get-proposal-info [proposal-id]`
 
 ## **Contributing**
 

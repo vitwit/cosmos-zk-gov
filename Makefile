@@ -55,7 +55,7 @@ build_tags_comma_sep := $(subst $(whitespace),$(comma),$(build_tags))
 # process linker flags
 
 ldflags = -X github.com/cosmos/cosmos-sdk/version.Name=sim \
-		-X github.com/cosmos/cosmos-sdk/version.AppName=simd \
+		-X github.com/cosmos/cosmos-sdk/version.AppName=zkappd \
 		-X github.com/cosmos/cosmos-sdk/version.Version=$(VERSION) \
 		-X github.com/cosmos/cosmos-sdk/version.Commit=$(COMMIT) \
 		-X "github.com/cosmos/cosmos-sdk/version.BuildTags=$(build_tags_comma_sep)" \
@@ -187,12 +187,12 @@ build-docs:
 
 # make init-simapp initializes a single local node network
 # it is useful for testing and development
-# Usage: make install && make init-simapp && simd start
+# Usage: make install && make init-simapp && zkappd start
 # Warning: make init-simapp will remove all data in simapp home directory
 init-simapp:
 	rm -rf ~/.zkapp/
 	bash ./scripts/init-simapp.sh
-	simd start
+	zkappd start
 
 test: test-unit
 test-e2e:
@@ -467,7 +467,7 @@ localnet-build-dlv:
 	$(MAKE) -C contrib/images simd-dlv
 
 localnet-build-nodes:
-	$(DOCKER) run --rm -v $(CURDIR)/.testnets:/data cosmossdk/simd \
+	$(DOCKER) run --rm -v $(CURDIR)/.testnets:/data cosmossdk/zkappd \
 			  testnet init-files --v 4 -o /data --starting-ip-address 192.168.10.2 --keyring-backend=test
 	docker-compose up -d
 
@@ -498,13 +498,13 @@ generate-zk-keys:
 ######################################################################
 
 run-alice-relayer:
-	simd tx zk-gov run-relayer --from alice --keyring-backend test --chain-id demo -y
+	zkappd tx zk-gov run-relayer --from alice --keyring-backend test --chain-id demo -y
 run-bob-relayer:
-	simd tx zk-gov run-relayer --from bob --keyring-backend test --chain-id demo
+	zkappd tx zk-gov run-relayer --from bob --keyring-backend test --chain-id demo
 run-sai-relayer:
-	simd tx zk-gov run-relayer --from sai --keyring-backend test --chain-id demo
+	zkappd tx zk-gov run-relayer --from sai --keyring-backend test --chain-id demo
 run-teja-relayer:
-	simd tx zk-gov run-relayer --from teja --keyring-backend test --chain-id demo
+	zkappd tx zk-gov run-relayer --from teja --keyring-backend test --chain-id demo
 
 .PHONY: run-alice-relayer run-bob-relayer run-sai-relayer run-teja-relayer
 
@@ -513,36 +513,36 @@ run-teja-relayer:
 ######################################################################
 
 create-proposal-a: 
-	simd tx zk-gov create-proposal "proposal-A" "proposal-A description" --from alice --keyring-backend test --chain-id demo
+	zkappd tx zk-gov create-proposal "proposal-A" "proposal-A description" --from alice --keyring-backend test --chain-id demo
 create-proposal-b: 
-	simd tx zk-gov create-proposal "proposal-B" "proposal-B description" --from alice --keyring-backend test --chain-id demo
+	zkappd tx zk-gov create-proposal "proposal-B" "proposal-B description" --from alice --keyring-backend test --chain-id demo
 
 register-alice-vote: 
-	simd tx zk-gov register-vote 1 "NO" --from alice --keyring-backend test --chain-id demo
+	zkappd tx zk-gov register-vote 1 "NO" --from alice --keyring-backend test --chain-id demo
 register-bob-vote: 
-	simd tx zk-gov register-vote 1 "YES" --from bob --keyring-backend test --chain-id demo
+	zkappd tx zk-gov register-vote 1 "YES" --from bob --keyring-backend test --chain-id demo
 register-sai-vote: 
-	simd tx zk-gov register-vote 1 "NO" --from sai --keyring-backend test --chain-id demo
+	zkappd tx zk-gov register-vote 1 "NO" --from sai --keyring-backend test --chain-id demo
 register-teja-vote: 
-	simd tx zk-gov register-vote 1 "YES" --from teja --keyring-backend test --chain-id demo
+	zkappd tx zk-gov register-vote 1 "YES" --from teja --keyring-backend test --chain-id demo
 
 broadcast-alice-vote:
-	simd tx zk-gov vote 1 cosmos1ux2hl3y42nz6vtdl8k7t7f05k9p3r2k62zfvtv --from unknown --keyring-backend test --chain-id demo
+	zkappd tx zk-gov vote 1 cosmos1ux2hl3y42nz6vtdl8k7t7f05k9p3r2k62zfvtv --from unknown --keyring-backend test --chain-id demo
 broadcast-bob-vote:
-	simd tx zk-gov vote 1 cosmos13j3mn8n2d3scd2yy3urmw5vqhn53rej6p050np --from unknown --keyring-backend test --chain-id demo
+	zkappd tx zk-gov vote 1 cosmos13j3mn8n2d3scd2yy3urmw5vqhn53rej6p050np --from unknown --keyring-backend test --chain-id demo
 broadcast-sai-vote:
-	simd tx zk-gov vote 1 cosmos1mg4t0l2nc98vhjdmg6kzee5wh6uhx9jlfrgfu9 --from unknown --keyring-backend test --chain-id demo
+	zkappd tx zk-gov vote 1 cosmos1mg4t0l2nc98vhjdmg6kzee5wh6uhx9jlfrgfu9 --from unknown --keyring-backend test --chain-id demo
 broadcast-teja-vote:
-	simd tx zk-gov vote 1 cosmos1pf0m5ch2673r6lv5lwm2mkyw433xapzx7nuemu --from unknown --keyring-backend test --chain-id demo
+	zkappd tx zk-gov vote 1 cosmos1pf0m5ch2673r6lv5lwm2mkyw433xapzx7nuemu --from unknown --keyring-backend test --chain-id demo
 
 broadcast-alice-vote-via-relayer:
-	simd tx zk-gov vote 1 cosmos1ux2hl3y42nz6vtdl8k7t7f05k9p3r2k62zfvtv --relayer "http://localhost:8080"
+	zkappd tx zk-gov vote 1 cosmos1ux2hl3y42nz6vtdl8k7t7f05k9p3r2k62zfvtv --relayer "http://localhost:8080"
 broadcast-bob-vote-via-relayer:
-	simd tx zk-gov vote 1 cosmos13j3mn8n2d3scd2yy3urmw5vqhn53rej6p050np --relayer "http://localhost:8080"
+	zkappd tx zk-gov vote 1 cosmos13j3mn8n2d3scd2yy3urmw5vqhn53rej6p050np --relayer "http://localhost:8080"
 broadcast-sai-vote-via-relayer:
-	simd tx zk-gov vote 1 cosmos1mg4t0l2nc98vhjdmg6kzee5wh6uhx9jlfrgfu9 --relayer "http://localhost:8080"
+	zkappd tx zk-gov vote 1 cosmos1mg4t0l2nc98vhjdmg6kzee5wh6uhx9jlfrgfu9 --relayer "http://localhost:8080"
 broadcast-teja-vote-via-relayer:
-	simd tx zk-gov vote 1 cosmos1pf0m5ch2673r6lv5lwm2mkyw433xapzx7nuemu --relayer "http://localhost:8080"
+	zkappd tx zk-gov vote 1 cosmos1pf0m5ch2673r6lv5lwm2mkyw433xapzx7nuemu --relayer "http://localhost:8080"
 
 
 .PHONY: create-proposal-a create-proposal-b broadcast-alice-vote broadcast-bob-vote broadcast-sai-vote broadcast-teja-vote broadcast-alice-vote-via-relayer broadcast-bob-vote-via-relayer broadcast-sai-vote-via-relayer broadcast-teja-vote-via-relayer
