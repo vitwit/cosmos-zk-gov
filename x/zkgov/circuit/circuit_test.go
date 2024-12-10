@@ -14,7 +14,7 @@ import (
 	"github.com/consensys/gnark-crypto/ecc/bn254/fr/mimc"
 	"github.com/consensys/gnark/frontend"
 	"github.com/consensys/gnark/test"
-	"github.com/vishal-kanna/zk/zk-gov/x/zkgov/store"
+	"github.com/vitwit/cosmos-zk-gov/x/zkgov/store"
 )
 
 func GetRandomCommitmentList(size uint64, hFunc hash.Hash) []byte {

@@ -6,20 +6,20 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/vishal-kanna/zk/zk-gov/x/zkgov/types"
+	"github.com/vitwit/cosmos-zk-gov/x/zkgov/types"
 )
 
-type RelayerClient struct {
+type DispatcherClient struct {
 	Address string
 }
 
-func NewRelayerClient(address string) *RelayerClient {
-	return &RelayerClient{
+func NewdispatcherClient(address string) *DispatcherClient {
+	return &DispatcherClient{
 		Address: address,
 	}
 }
 
-func (relayerClient *RelayerClient) BroadCastTx(msg types.MsgVoteProposal) error {
+func (dispatcherClient *DispatcherClient) BroadCastTx(msg types.MsgVoteProposal) error {
 	// Marshal the message to JSON
 	msgBytes, err := msg.Marshal()
 	if err != nil {
@@ -27,7 +27,7 @@ func (relayerClient *RelayerClient) BroadCastTx(msg types.MsgVoteProposal) error
 	}
 
 	// Create a new POST request
-	url := relayerClient.Address + "/broadCastTransaction"
+	url := dispatcherClient.Address + "/broadCastTransaction"
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer(msgBytes))
 	if err != nil {
 		return fmt.Errorf("failed to create HTTP request: %w", err)

@@ -3,7 +3,7 @@ package keeper
 import (
 	"context"
 
-	"github.com/vishal-kanna/zk/zk-gov/x/zkgov/types"
+	"github.com/vitwit/cosmos-zk-gov/x/zkgov/types"
 )
 
 var _ types.QueryServer = Keeper{}

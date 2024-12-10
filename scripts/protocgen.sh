@@ -32,7 +32,7 @@ cd ..
 # (cd tests/integration/tx/internal; make codegen)
 
 # move proto files to the right places
-cp -r github.com/vishal-kanna/zk/zk-gov/* ./
+cp -r github.com/vitwit/cosmos-zk-gov/* ./
 rm -rf github.com
 
 go mod tidy

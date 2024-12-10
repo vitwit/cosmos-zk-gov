@@ -6,7 +6,7 @@ import (
 	"errors"
 
 	cosmosstore "cosmossdk.io/core/store"
-	"github.com/vishal-kanna/zk/zk-gov/x/zkgov/types"
+	"github.com/vitwit/cosmos-zk-gov/x/zkgov/types"
 )
 
 func InitNullifiers(ctx context.Context, store cosmosstore.KVStore, proposalID uint64) error {

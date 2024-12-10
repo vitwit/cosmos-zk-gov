@@ -11,7 +11,7 @@ Cosmos ZK Voting is a governance voting system designed to ensure voter anonymit
 * **Anonymous Voting:** Protects voter identities using Zero-Knowledge proofs.  
 * **Decentralized:** Built on the Cosmos blockchain for enhanced security and scalability.  
 * **Secure Key Management:** Ensures the safety of prover and verifier keys.  
-* **Relayer Support:** Facilitates seamless vote transactions through a dedicated relayer service.  
+* **dispatcher Support:** Facilitates seamless vote transactions through a dedicated dispatcher service.  
 * **Flexible Proposal Management:** Create and manage governance proposals with ease.
 
 ## **Getting Started**
@@ -30,9 +30,7 @@ bash
 
 Copy code
 
-`git clone https://github.com/your-username/cosmos-zk-voting`
-
-`cd cosmos-zk-voting`
+`git clone https://github.com/vitwit/cosmos-zk-gov`
 
 `git fetch`
 
@@ -52,20 +50,13 @@ Copy code
 
 Initialize and start a local testnet.
 
-**Initialize the Chain:**  
+1. **Initialize and Start the Chain:**  
 Modify the `scripts/init-simapp.sh` script according to your requirements.  
+`make init-simapp` will the run chain.
 bash  
 Copy code  
 `make init-simapp`
 
-1. 
-
-**Start the Testnet:**  
-bash  
-Copy code  
-`zkappd  start`
-
-2. 
 
 ## **ZK Prover and Verifier Keys**
 
@@ -90,36 +81,36 @@ Copy code
 
 * **Optimize Merkle Implementation:** Aim for a constant Merkle tree size of 2^31 and improve update operations from O(n) to O(log n).
 
-## **Relayer**
+## **Dispatcher**
 
-The Relayer is an HTTP server that listens for vote transactions, signs them with a valid chain address, and broadcasts them on-chain.
+The Dispatcher is an HTTP server that listens for vote transactions, signs them with a valid chain address, and broadcasts them on-chain.
 
-### **Why Use a Relayer?**
+### **Why Use a Dispatcher?**
 
-Vote transactions must be sent from a different, unlinkable address than the registered address. Since most users may not have multiple unlinkable addresses, the Relayer serves as an intermediary to handle this securely.
+Vote transactions must be sent from a different, unlinkable address than the registered address. Since most users may not have multiple unlinkable addresses, the dispatcher serves as an intermediary to handle this securely.
 
-**Security Assurance:** The Relayer cannot manipulate transactions because the ZK proof guarantees transaction validity without exposing user secrets.
+**Security Assurance:** The Dispatcher cannot manipulate transactions because the ZK proof guarantees transaction validity without exposing user secrets.
 
-### **Running the Relayer**
+### **Running the Dispatcher**
 
-**Navigate to the Relayer Directory:**  
+**Navigate to the Dispatcher Directory:**  
 bash  
 Copy code  
-`cd /x/zkgov/client/relayer`
+`cd /x/zkgov/client/dispatcher`
 
 1. 
 
-**Start the Relayer:**  
+**Start the dispatcher:**  
 bash  
 Copy code  
-`zkappd  tx zk-gov run-relayer --from {key} --keyring-backend test --chain-id {chain-id} -y`
+`zkappd  tx zk-gov run-dispatcher --from {key} --keyring-backend test --chain-id {chain-id} -y`
 
-Alternatively, you can run a predefined relayer (e.g., Alice):  
+Alternatively, you can run a predefined dispatcher (e.g., Vishal):  
 bash  
 Copy code  
-`make run-alice-relayer`
+`make run-vishal-dispatcher`
 
-2. This command starts an HTTP server on port `8080` by default. You can change the port using the `--relayerPort {port}` flag.
+2. This command starts an HTTP server on port `8080` by default. You can change the port using the `--dispatcherPort {port}` flag.
 
 ## **Transactions**
 
@@ -145,6 +136,12 @@ Copy code
 
 `make create-proposal-a`
 
+**Create Commitments Directory:**  
+bash  
+Copy code  
+`mkdir commitments`
+
+
 ### **Register a Vote**
 
 Register a vote commitment, which will be used later to anonymize the actual vote.
@@ -159,12 +156,11 @@ Alternatively, use predefined make commands:
 
 bash
 
-`mkdir commitments`
 Copy code
 
-`make register-alice-vote`
+`make register-vishal-vote`
 
-`make register-bob-vote`
+`make register-kanna-vote`
 
 `make register-sai-vote`
 
@@ -174,9 +170,9 @@ Copy code
 
 After registering a vote commitment, generate a ZK proof to cast the actual vote. This proof verifies that you know the valid commitment without revealing your identity.
 
-**Important:** The vote transaction must be signed by a different, unlinkable address from the one used to register the vote commitment. Use the Relayer to facilitate this process.
+**Important:** The vote transaction must be signed by a different, unlinkable address from the one used to register the vote commitment. Use the dispatcher to facilitate this process.
 
-#### **Without Relayer**
+#### **Without dispatcher**
 
 bash
 
@@ -190,17 +186,17 @@ bash
 
 Copy code
 
-`make broadcast-alice-vote`
+`make broadcast-vishal-vote`
 
-`make broadcast-bob-vote`
+`make broadcast-kanna-vote`
 
-#### **With Relayer**
+#### **With Dispatcher**
 
 bash
 
 Copy code
 
-`zkappd  tx zk-gov vote [proposal-id] [register-vote-address] --relayer [relayer-address]`
+`zkappd  tx zk-gov vote [proposal-id] [register-vote-address] --dispatcher [dispatcher-address]`
 
 Or use make commands:
 
@@ -208,9 +204,9 @@ bash
 
 Copy code
 
-`make broadcast-sai-vote-via-relayer`
+`make broadcast-sai-vote-via-dispatcher`
 
-`make broadcast-teja-vote-via-relayer`
+`make broadcast-teja-vote-via-dispatcher`
 
 ### **Query a Proposal**
 

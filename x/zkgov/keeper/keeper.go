@@ -6,9 +6,9 @@ import (
 	cosmosstore "cosmossdk.io/core/store"
 	"github.com/consensys/gnark/backend/groth16"
 	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/vishal-kanna/zk/zk-gov/x/zkgov/circuit"
-	storeImpl "github.com/vishal-kanna/zk/zk-gov/x/zkgov/store"
-	"github.com/vishal-kanna/zk/zk-gov/x/zkgov/types"
+	"github.com/vitwit/cosmos-zk-gov/x/zkgov/circuit"
+	storeImpl "github.com/vitwit/cosmos-zk-gov/x/zkgov/store"
+	"github.com/vitwit/cosmos-zk-gov/x/zkgov/types"
 
 	storetypes "cosmossdk.io/store/types"
 	"github.com/cosmos/cosmos-sdk/runtime"

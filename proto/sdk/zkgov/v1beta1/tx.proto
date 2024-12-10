@@ -5,7 +5,7 @@ import "cosmos/msg/v1/msg.proto";
 import "sdk/zkgov/v1beta1/zkgov.proto";
 import "google/protobuf/timestamp.proto";
 
-option go_package = "github.com/vishal-kanna/zk/zk-gov/x/zkgov/types";
+option go_package = "github.com/vitwit/cosmos-zk-gov/x/zkgov/types";
 
 // Msg service for the zk-giv service
 service Msg {

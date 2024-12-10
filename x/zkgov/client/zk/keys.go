@@ -12,7 +12,7 @@ import (
 	"github.com/consensys/gnark/backend/groth16"
 	"github.com/consensys/gnark/frontend"
 	"github.com/consensys/gnark/frontend/cs/r1cs"
-	zkcircuit "github.com/vishal-kanna/zk/zk-gov/x/zkgov/circuit"
+	zkcircuit "github.com/vitwit/cosmos-zk-gov/x/zkgov/circuit"
 )
 
 func GenerateZKKeys(merkleProofSize int) {
