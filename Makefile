@@ -8,7 +8,6 @@ export COMMIT := $(shell git log -1 --format='%H')
 LEDGER_ENABLED ?= true
 BINDIR ?= $(GOPATH)/bin
 BUILDDIR ?= $(CURDIR)/build
-SIMAPP = ./simapp
 MOCKS_DIR = $(CURDIR)/tests/mocks
 HTTPS_GIT := https://github.com/cosmos/cosmos-sdk.git
 DOCKER := $(shell which docker)
@@ -185,13 +184,13 @@ build-docs:
 ###                           Tests & Simulation                            ###
 ###############################################################################
 
-# make init-simapp initializes a single local node network
+# make init-zkgovapp initializes a single local node network
 # it is useful for testing and development
-# Usage: make install && make init-simapp && zkappd start
-# Warning: make init-simapp will remove all data in simapp home directory
-init-simapp:
-	rm -rf ~/.zkapp/
-	bash ./scripts/init-simapp.sh
+# Usage: make install && make init-zkgovapp && zkappd start
+# Warning: make init-zkgovapp will remove all data in zkgovapp home directory
+init-zkgovapp:
+	rm -rf ~/.zkgovapp/
+	bash ./scripts/init-zkgovapp.sh
 	zkappd start
 
 test: test-unit
