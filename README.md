@@ -48,10 +48,10 @@ make install
 Initialize and start a local testnet.
 
 1. **Initialize and Start the Chain:**  
-Modify the `scripts/init-simapp.sh` script according to your requirements.  
-`make init-simapp` will the run chain.
+Modify the `scripts/init-zkgovapp.sh` script according to your requirements.  
+`make init-zkgovapp` will the run chain.
 ```bash   
-make init-simapp
+make init-zkgovapp
 ```
 
 
